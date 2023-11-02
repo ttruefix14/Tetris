@@ -14,8 +14,16 @@ namespace Tetris
 
         public void Draw()
         {
-                Console.SetCursorPosition(x, y);
-                Console.WriteLine(c);
-            }
+            Console.SetCursorPosition(x, y);
+            Console.Write(c);
+        }
+
+        public Point(int a, int b, char sym) 
+        { 
+            x = a;
+            y = b;
+            c = sym;
+        }
+        public Point() { }
     }
 }
