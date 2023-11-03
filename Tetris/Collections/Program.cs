@@ -57,6 +57,10 @@ namespace Collections
 
             square.Draw();
 
+            Stick stick = new Stick(4, 3, '#');
+
+            stick.Draw();
+
             Console.ReadLine();
         }
     }
