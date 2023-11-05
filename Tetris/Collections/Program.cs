@@ -53,9 +53,9 @@ namespace Collections
             //    Console.WriteLine();
             //}
 
-            Square square = new Square(1, 5, '#');
+            Stick stick = new Stick(1, 5, '#');
 
-            square.Draw();
+            stick.Draw();
 
             Stick stick = new Stick(4, 3, '#');
 

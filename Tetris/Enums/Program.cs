@@ -11,17 +11,21 @@ namespace Enums
     {
         static void Main(string[] args)
         {
-            Square square = new Square(5, 5, '#');
+            Stick stick = new Stick(5, 5, '#');
 
-            square.Draw();
+            stick.Draw();
 
             while (true)
             {
                 ConsoleKey key = Console.ReadKey().Key;
-                if(!square.consoleMoves.ContainsKey(key)) {
-                    break;
+                if(stick.consoleMoves.ContainsKey(key)) {
+                    stick.Move(stick.consoleMoves[key]);
                 }
-                square.Move(square.consoleMoves[key]);
+                else if(key == ConsoleKey.Spacebar)
+                {
+                    stick.Rotate();
+                }
+                else { break; }
             }
 
 
