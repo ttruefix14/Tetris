@@ -9,8 +9,6 @@ namespace Tetris
 {
     public class Stick : Figure
     {
-        int dx = -1;
-        int dy = -1;
         public Stick(int x, int y, char c)
         {
             points[0] = new Point(x, y, c);
@@ -20,17 +18,50 @@ namespace Tetris
         }
         public override void Rotate()
         {
-            int xx = 1;
-            int yy = 1;
-
-            yy *= dy;
-            foreach(Point p in points)
+            Clear();
+            if (points[0].x == points[1].x)
             {
-                p.Rotate(xx, yy);
-                xx += dx;
-                yy += dy;
+                RotateHorizontal();
+            } 
+            else
+            {
+                RotateVertical();
             }
-            dy *= -1;
+            //int dx, dy;
+            //if (rotation == Rotation.None || rotation == Rotation.Two) 
+            //{
+            //    dx = 1;
+            //    dy = -1;
+            //}
+            //else
+            //{
+            //    dx = -1;
+            //    dy = 1;
+            //}
+            //for(int i = 0; i < points.Length; i++)
+            //{
+            //    points[i].Rotate(i * dx, i * dy);
+            //}
+            //rotation = (rotation == Rotation.Three) ? Rotation.None : rotation + 1;
+            Draw();
+        }
+
+        private void RotateVertical()
+        {
+            for (int i = 0; i < points.Length; i++)
+            {
+                points[i].x = points[0].x;
+                points[i].y = points[0].y + i;
+            }
+        }
+
+        private void RotateHorizontal()
+        {
+            for (int i = 0; i < points.Length; i++)
+            {
+                points[i].y = points[0].y;
+                points[i].x = points[0].x + i;
+            }
         }
     }
 }

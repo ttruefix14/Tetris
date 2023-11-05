@@ -13,8 +13,24 @@ namespace Tetris
             Console.SetWindowSize(40, 30);
             Console.SetBufferSize(40, 30);
 
-            Point p1 = new Point(2, 3, '*');
-            p1.Draw();
+            Stick stick = new Stick(5, 5, '#');
+
+            stick.Draw();
+
+            while (true)
+            {
+                ConsoleKey key = Console.ReadKey().Key;
+                if (stick.consoleMoves.ContainsKey(key))
+                {
+                    stick.Move(stick.consoleMoves[key]);
+                }
+                else if (key == ConsoleKey.Spacebar)
+                {
+                    stick.Rotate();
+                }
+                else { break; }
+            }
+
 
             Console.ReadLine();
         }

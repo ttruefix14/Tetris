@@ -12,6 +12,8 @@ namespace Tetris
     {
         public Point[] points = new Point[4];
 
+        protected Rotation rotation = Rotation.None;
+
         public void Draw()
         {
             foreach (Point p in points)
@@ -40,7 +42,7 @@ namespace Tetris
         }
 
         public abstract void Rotate();
-
+         
         public Dictionary<ConsoleKey, Direction> consoleMoves = new Dictionary<ConsoleKey, Direction>()
         {
             { ConsoleKey.LeftArrow, Direction.Left },

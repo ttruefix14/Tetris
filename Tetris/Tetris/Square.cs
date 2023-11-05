@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Tetris
 {
-    public class Stick : Figure
+    public class Square : Figure
     {
-        public Stick(int x, int y, char c)
+        public Square(int x, int y, char c)
         {
             points[0] = new Point(x, y, c);
             points[1] = new Point(x + 1, y, c);
