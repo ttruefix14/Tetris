@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Emit;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Tetris
@@ -11,8 +12,8 @@ namespace Tetris
     {
         static void Main(string[] args)
         {
-            Console.SetWindowSize(40, 30);
-            Console.SetBufferSize(40, 30);
+            Console.SetWindowSize(Field.WIDTH, Field.HEIGTH);
+            Console.SetBufferSize(Field.WIDTH, Field.HEIGTH);
             Console.CursorVisible = false;
 
             FigureGenerator generator = new FigureGenerator(20, 0, '*');
@@ -24,35 +25,33 @@ namespace Tetris
                 if (Console.KeyAvailable)
                 {
                     var key = Console.ReadKey();
+                    if(key.Key == ConsoleKey.Escape)
+                        break;
                     HandleKey(figure, key);
                 }
+                FigureFall(ref figure, generator);
             }
         }
 
         private static void HandleKey(Figure figure, ConsoleKeyInfo key)
         {
-            if (figure.consoleMoves.ContainsKey(key.Key))
+            if(Field.consoleMoves.ContainsKey(key.Key))
             {
-                figure.TryMove(figure.consoleMoves[key.Key]);
+                figure.TryMove(Field.consoleMoves[key.Key]);
             }
-            else if (key.Key == ConsoleKey.Spacebar)
+            else if(key.Key == ConsoleKey.Spacebar)
             {
                 figure.TryRotate();
             }
-            else 
-            { 
+        }
 
+        static void FigureFall(ref Figure figure, FigureGenerator generator)
+        {
+            Thread.Sleep(100);
+            if (!figure.TryMove(Direction.Down))
+            {
+                figure = generator.GetRandomFigure();
             }
         }
-        //static void FigureFall(out Figure figure, FigureGenerator generator)
-        //{
-        //    figure = generator.GetRandomFigure();
-        //    figure.Draw();
-
-        //    for (int i = 0; i < 15; i++)
-        //    {
-        //        figure.Move(Direction.Down);
-        //    }
-        //}
     }
 }

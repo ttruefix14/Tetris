@@ -11,10 +11,6 @@ namespace Tetris
     public abstract class Figure
     {
         const int LENGTH = 4;
-        protected int min_y = 1;
-        protected int max_y = 30 - 2;
-        protected int min_x = 1;
-        protected int max_x = 40 - 2;
 
         public Point[] points = new Point[LENGTH];
 
@@ -35,13 +31,13 @@ namespace Tetris
                 p.Clear();
             }
         }
-        public void TryMove(Direction dir)
+        public bool TryMove(Direction dir)
         {
             var clone = Clone();
             Move(clone, dir);
             if(IsOutBorder(clone))
             {
-                return;
+                return false;
             }
             else
             {
@@ -50,6 +46,7 @@ namespace Tetris
                 Draw();
                 Thread.Sleep(100);
             }
+            return true;
         }
         private void Move(Point[] pList, Direction dir)
         {
@@ -58,17 +55,6 @@ namespace Tetris
                 p.Move(dir);
             }
         }
-
-        //public void Move(Direction dir)
-        //{
-        //    Clear();
-        //    foreach(Point p in points)
-        //    {
-        //        p.Move(dir);
-        //    }
-        //    Draw();
-        //    Thread.Sleep(100);
-        //}
 
         protected Point[] Clone()
         {
@@ -84,7 +70,7 @@ namespace Tetris
         {
             foreach(Point p in pList)
             {
-                if(p.y > max_y || p.x < min_x || p.x > max_x)
+                if(p.y >= Field.HEIGTH || p.x < 0 || p.x >= Field.WIDTH)
                 {
                     return true;
                 }
@@ -96,13 +82,15 @@ namespace Tetris
 
         public abstract void TryRotate();
 
-        public Dictionary<ConsoleKey, Direction> consoleMoves = new Dictionary<ConsoleKey, Direction>()
-        {
-            { ConsoleKey.LeftArrow, Direction.Left },
-            { ConsoleKey.RightArrow, Direction.Right },
-            { ConsoleKey.DownArrow, Direction.Down }
-        };
-
-
+        //public void Move(Direction dir)
+        //{
+        //    Clear();
+        //    foreach(Point p in points)
+        //    {
+        //        p.Move(dir);
+        //    }
+        //    Draw();
+        //    Thread.Sleep(100);
+        //}
     }
 }
