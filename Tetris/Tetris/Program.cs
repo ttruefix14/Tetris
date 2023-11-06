@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,26 +14,46 @@ namespace Tetris
             Console.SetWindowSize(40, 30);
             Console.SetBufferSize(40, 30);
 
-            Stick stick = new Stick(5, 5, '#');
+            FigureGenerator generator = new FigureGenerator(20, 0, '*');
 
-            stick.Draw();
+            Figure figure = null;
 
             while (true)
             {
-                ConsoleKey key = Console.ReadKey().Key;
-                if (stick.consoleMoves.ContainsKey(key))
-                {
-                    stick.Move(stick.consoleMoves[key]);
-                }
-                else if (key == ConsoleKey.Spacebar)
-                {
-                    stick.Rotate();
-                }
-                else { break; }
+                FigureFall(figure, generator);
+
+                figure.Draw();
             }
+
+            //Figure figure = Generator.GetRandomFigure();
+            //figure.Draw();
+
+            //while (true)
+            //{
+            //    ConsoleKey key = Console.ReadKey().Key;
+            //    if (figure.consoleMoves.ContainsKey(key))
+            //    {
+            //        figure.Move(figure.consoleMoves[key]);
+            //    }
+            //    else if (key == ConsoleKey.Spacebar)
+            //    {
+            //        figure.Rotate();
+            //    }
+            //    else { break; }
+            //}
 
 
             Console.ReadLine();
+        }
+        static void FigureFall(Figure figure, FigureGenerator generator)
+        {
+            figure = generator.GetRandomFigure();
+            figure.Draw();
+
+            for (int j = 0; j < 15; j++)
+            {
+                figure.Move(Direction.Down);
+            }
         }
     }
 }

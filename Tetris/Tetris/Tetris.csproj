@@ -45,6 +45,8 @@
   <ItemGroup>
     <Compile Include="Figure.cs" />
     <Compile Include="Direction.cs" />
+    <Compile Include="FigureGenerator.cs" />
+    <Compile Include="FigureType.cs" />
     <Compile Include="Point.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
