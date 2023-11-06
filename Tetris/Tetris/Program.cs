@@ -13,47 +13,46 @@ namespace Tetris
         {
             Console.SetWindowSize(40, 30);
             Console.SetBufferSize(40, 30);
+            Console.CursorVisible = false;
 
             FigureGenerator generator = new FigureGenerator(20, 0, '*');
 
-            Figure figure;
+            Figure figure = generator.GetRandomFigure();
 
             while (true)
             {
-                figure = FigureFall(out figure, generator);
-
-                figure.Draw();
+                if (Console.KeyAvailable)
+                {
+                    var key = Console.ReadKey();
+                    HandleKey(figure, key);
+                }
             }
-
-            //Figure figure = Generator.GetRandomFigure();
-            //figure.Draw();
-
-            //while (true)
-            //{
-            //    ConsoleKey key = Console.ReadKey().Key;
-            //    if (figure.consoleMoves.ContainsKey(key))
-            //    {
-            //        figure.Move(figure.consoleMoves[key]);
-            //    }
-            //    else if (key == ConsoleKey.Spacebar)
-            //    {
-            //        figure.Rotate();
-            //    }
-            //    else { break; }
-            //}
-
-
-            Console.ReadLine();
         }
-        static void FigureFall(out Figure figure, FigureGenerator generator)
+
+        private static void HandleKey(Figure figure, ConsoleKeyInfo key)
         {
-            figure = generator.GetRandomFigure();
-            figure.Draw();
-
-            for (int j = 0; j < 15; j++)
+            if (figure.consoleMoves.ContainsKey(key.Key))
             {
-                figure.Move(Direction.Down);
+                figure.Move(figure.consoleMoves[key.Key]);
+            }
+            else if (key.Key == ConsoleKey.Spacebar)
+            {
+                figure.Rotate();
+            }
+            else 
+            { 
+
             }
         }
+        //static void FigureFall(out Figure figure, FigureGenerator generator)
+        //{
+        //    figure = generator.GetRandomFigure();
+        //    figure.Draw();
+
+        //    for (int i = 0; i < 15; i++)
+        //    {
+        //        figure.Move(Direction.Down);
+        //    }
+        //}
     }
 }
