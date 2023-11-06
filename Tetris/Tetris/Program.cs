@@ -16,11 +16,11 @@ namespace Tetris
 
             FigureGenerator generator = new FigureGenerator(20, 0, '*');
 
-            Figure figure = null;
+            Figure figure;
 
             while (true)
             {
-                FigureFall(figure, generator);
+                figure = FigureFall(out figure, generator);
 
                 figure.Draw();
             }
@@ -45,7 +45,7 @@ namespace Tetris
 
             Console.ReadLine();
         }
-        static void FigureFall(Figure figure, FigureGenerator generator)
+        static void FigureFall(out Figure figure, FigureGenerator generator)
         {
             figure = generator.GetRandomFigure();
             figure.Draw();
