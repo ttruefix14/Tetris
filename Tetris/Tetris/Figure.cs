@@ -70,7 +70,7 @@ namespace Tetris
         {
             foreach(Point p in pList)
             {
-                if(p.y >= Field.HEIGTH || p.x < 0 || p.x >= Field.WIDTH)
+                if(p.y >= Field.Height || p.x < 0 || p.x >= Field.Width)
                 {
                     return true;
                 }

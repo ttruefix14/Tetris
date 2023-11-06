@@ -12,11 +12,14 @@ namespace Tetris
     {
         static void Main(string[] args)
         {
-            Console.SetWindowSize(Field.WIDTH, Field.HEIGTH);
-            Console.SetBufferSize(Field.WIDTH, Field.HEIGTH);
+            Console.SetWindowSize(Field.Width, Field.Height);
+            Console.SetBufferSize(Field.Width, Field.Height);
             Console.CursorVisible = false;
 
-            FigureGenerator generator = new FigureGenerator(20, 0, '*');
+            Field.Width = 20;
+            Field.Height = 85;
+
+            FigureGenerator generator = new FigureGenerator(Field.Width / 2, 0, '*');
 
             Figure figure = generator.GetRandomFigure();
 
@@ -35,9 +38,9 @@ namespace Tetris
 
         private static void HandleKey(Figure figure, ConsoleKeyInfo key)
         {
-            if(Field.consoleMoves.ContainsKey(key.Key))
+            if(Field.SupportConsoleMove(key.Key))
             {
-                figure.TryMove(Field.consoleMoves[key.Key]);
+                figure.TryMove(Field.GetDirection(key.Key));
             }
             else if(key.Key == ConsoleKey.Spacebar)
             {
