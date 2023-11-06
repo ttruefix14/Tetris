@@ -33,11 +33,11 @@ namespace Tetris
         {
             if (figure.consoleMoves.ContainsKey(key.Key))
             {
-                figure.Move(figure.consoleMoves[key.Key]);
+                figure.TryMove(figure.consoleMoves[key.Key]);
             }
             else if (key.Key == ConsoleKey.Spacebar)
             {
-                figure.Rotate();
+                figure.TryRotate();
             }
             else 
             { 

@@ -52,5 +52,12 @@ namespace Tetris
             c = sym;
         }
         public Point() { }
+
+        public Point(Point p)
+        {
+            this.x = p.x;
+            this.y = p.y;
+            this.c = p.c;
+        }
     }
 }

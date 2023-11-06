@@ -10,12 +10,13 @@ namespace Tetris
 {
     public abstract class Figure
     {
-        protected int min_y = 0;
-        protected int max_y = 30 - 1;
-        protected int min_x = 0;
-        protected int max_x = 40 - 1;
+        const int LENGTH = 4;
+        protected int min_y = 1;
+        protected int max_y = 30 - 2;
+        protected int min_x = 1;
+        protected int max_x = 40 - 2;
 
-        public Point[] points = new Point[4];
+        public Point[] points = new Point[LENGTH];
 
         protected Rotation rotation = Rotation.None;
 
@@ -34,31 +35,56 @@ namespace Tetris
                 p.Clear();
             }
         }
-
-        public void Move(Direction dir)
+        public void TryMove(Direction dir)
         {
-            if(TouchBorder(dir))
+            var clone = Clone();
+            Move(clone, dir);
+            if(IsOutBorder(clone))
             {
                 return;
             }
-            Clear();
-            foreach(Point p in points)
+            else
+            {
+                Clear();
+                points = clone;
+                Draw();
+                Thread.Sleep(100);
+            }
+        }
+        private void Move(Point[] pList, Direction dir)
+        {
+            foreach(Point p in pList)
             {
                 p.Move(dir);
             }
-            Draw();
-            Thread.Sleep(100);
         }
 
-        private bool TouchBorder(Direction dir)
+        //public void Move(Direction dir)
+        //{
+        //    Clear();
+        //    foreach(Point p in points)
+        //    {
+        //        p.Move(dir);
+        //    }
+        //    Draw();
+        //    Thread.Sleep(100);
+        //}
+
+        protected Point[] Clone()
         {
-            foreach(Point p in points)
+            var newPoints = new Point[LENGTH];
+            for(int i = 0; i < LENGTH; i++)
             {
-                if(dir == Direction.Down && p.y >= max_y)
-                {
-                    return true;
-                }
-                else if(dir == Direction.Left && p.x <= min_x || dir == Direction.Right && p.x >= max_x)
+                newPoints[i] = new Point(points[i]);
+            }
+            return newPoints;
+        }
+
+        protected bool IsOutBorder(Point[] pList)
+        {
+            foreach(Point p in pList)
+            {
+                if(p.y > max_y || p.x < min_x || p.x > max_x)
                 {
                     return true;
                 }
@@ -66,8 +92,10 @@ namespace Tetris
             return false;
         }
 
-        public abstract void Rotate();
-         
+        public abstract void Rotate(Point[] pList);
+
+        public abstract void TryRotate();
+
         public Dictionary<ConsoleKey, Direction> consoleMoves = new Dictionary<ConsoleKey, Direction>()
         {
             { ConsoleKey.LeftArrow, Direction.Left },
