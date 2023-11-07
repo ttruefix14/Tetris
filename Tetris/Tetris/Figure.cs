@@ -14,8 +14,6 @@ namespace Tetris
 
         public Point[] points = new Point[LENGTH];
 
-        protected Rotation rotation = Rotation.None;
-
         public void Draw()
         {
             foreach (Point p in points)
@@ -70,7 +68,7 @@ namespace Tetris
         {
             foreach(Point p in pList)
             {
-                if(p.y >= Field.Height || p.x < 0 || p.x >= Field.Width)
+                if(p.Y >= Field.Height || p.X < 0 || p.X >= Field.Width)
                 {
                     return true;
                 }
@@ -81,6 +79,23 @@ namespace Tetris
         public abstract void Rotate(Point[] pList);
 
         public abstract void TryRotate();
+
+        private static Dictionary<ConsoleKey, Direction> consoleMoves = new Dictionary<ConsoleKey, Direction>()
+        {
+            { ConsoleKey.LeftArrow, Direction.Left },
+            { ConsoleKey.RightArrow, Direction.Right },
+            { ConsoleKey.DownArrow, Direction.Down }
+        };
+
+        public static bool SupportConsoleMove(ConsoleKey key)
+        {
+            return consoleMoves.ContainsKey(key);
+        }
+
+        public static Direction GetDirection(ConsoleKey key)
+        {
+            return consoleMoves[key];
+        }
 
         //public void Move(Direction dir)
         //{

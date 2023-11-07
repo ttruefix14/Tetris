@@ -16,8 +16,8 @@ namespace Tetris
             Console.SetBufferSize(Field.Width, Field.Height);
             Console.CursorVisible = false;
 
-            Field.Width = 20;
-            Field.Height = 85;
+            Field.Width = 40;
+            Field.Height = 30;
 
             FigureGenerator generator = new FigureGenerator(Field.Width / 2, 0, '*');
 
@@ -38,9 +38,9 @@ namespace Tetris
 
         private static void HandleKey(Figure figure, ConsoleKeyInfo key)
         {
-            if(Field.SupportConsoleMove(key.Key))
+            if(Figure.SupportConsoleMove(key.Key))
             {
-                figure.TryMove(Field.GetDirection(key.Key));
+                figure.TryMove(Figure.GetDirection(key.Key));
             }
             else if(key.Key == ConsoleKey.Spacebar)
             {
