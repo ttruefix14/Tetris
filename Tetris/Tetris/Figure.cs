@@ -10,13 +10,22 @@ namespace Tetris
 {
     public abstract class Figure
     {
-        const int LENGTH = 4;
+        public static int Length
+        {
+            get { return _length; }
+        }
+        private static readonly int _length = 4;
 
-        public Point[] points = new Point[LENGTH];
+        public Point[] Points
+        { 
+            get { return _points; } 
+            set { _points = value; } 
+        }
+        private Point[] _points = new Point[Length];
 
         public void Draw()
         {
-            foreach (Point p in points)
+            foreach(Point p in Points)
             {
                 p.Draw();
             }
@@ -24,11 +33,12 @@ namespace Tetris
 
         public void Clear()
         {
-            foreach (Point p in points)
+            foreach(Point p in Points)
             {
                 p.Clear();
             }
         }
+
         public bool TryMove(Direction dir)
         {
             var clone = Clone();
@@ -40,7 +50,7 @@ namespace Tetris
             else
             {
                 Clear();
-                points = clone;
+                Points = clone;
                 Draw();
                 Thread.Sleep(100);
             }
@@ -56,10 +66,10 @@ namespace Tetris
 
         protected Point[] Clone()
         {
-            var newPoints = new Point[LENGTH];
-            for(int i = 0; i < LENGTH; i++)
+            var newPoints = new Point[Length];
+            for(int i = 0; i < Length; i++)
             {
-                newPoints[i] = new Point(points[i]);
+                newPoints[i] = new Point(Points[i]);
             }
             return newPoints;
         }
@@ -77,35 +87,21 @@ namespace Tetris
         }
 
         public abstract void Rotate(Point[] pList);
-
         public abstract void TryRotate();
 
-        private static Dictionary<ConsoleKey, Direction> consoleMoves = new Dictionary<ConsoleKey, Direction>()
+        private static readonly Dictionary<ConsoleKey, Direction> _consoleMoves = new Dictionary<ConsoleKey, Direction>()
         {
             { ConsoleKey.LeftArrow, Direction.Left },
             { ConsoleKey.RightArrow, Direction.Right },
             { ConsoleKey.DownArrow, Direction.Down }
         };
-
         public static bool SupportConsoleMove(ConsoleKey key)
         {
-            return consoleMoves.ContainsKey(key);
+            return _consoleMoves.ContainsKey(key);
         }
-
         public static Direction GetDirection(ConsoleKey key)
         {
-            return consoleMoves[key];
+            return _consoleMoves[key];
         }
-
-        //public void Move(Direction dir)
-        //{
-        //    Clear();
-        //    foreach(Point p in points)
-        //    {
-        //        p.Move(dir);
-        //    }
-        //    Draw();
-        //    Thread.Sleep(100);
-        //}
     }
 }

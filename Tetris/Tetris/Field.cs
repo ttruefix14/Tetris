@@ -27,7 +27,7 @@ namespace Tetris
             get { return _height; }
             set
             {
-                if (!(value <= Console.LargestWindowHeight && value > 10))
+                if(!(value <= Console.LargestWindowHeight && value > 10))
                 {
                     return;
                 }

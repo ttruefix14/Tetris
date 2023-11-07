@@ -8,26 +8,32 @@ namespace Tetris
 {
     public class FigureGenerator
     {
+        public Random RandomGen { get { return _random; } }
+        public int X { get { return _x; } set { _x = value; } }
+        public int Y { get { return _y; } set { _y = value; } }
+        public char C { get { return _c; } set { _c = value; } }
+
         private Random _random = new Random();
         private int _x;
         private int _y;
         private char _c;
+
         public FigureGenerator(int x, int y, char c)
         {
-            _x = x;
-            _y = y;
-            _c = c;
+            X = x;
+            Y = y;
+            C = c;
         }
+
         public Figure GetRandomFigure()
         {
-            FigureType figureType = (FigureType)_random.Next(0, Enum.GetNames(typeof(FigureType)).Length);
-
-            switch (figureType)
+            FigureType figureType = (FigureType)RandomGen.Next(0, Enum.GetNames(typeof(FigureType)).Length);
+            switch(figureType)
             {
                 case FigureType.Square:
-                    return new Square(_x, _y, _c);
+                    return new Square(X, Y, C);
                 case FigureType.Stick:
-                    return new Stick(_x, _y, _c); ;
+                    return new Stick(X, Y, C); ;
                 default:
                     throw new Exception("Не существующий тип фигуры");
             } 

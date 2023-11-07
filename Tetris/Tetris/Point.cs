@@ -13,19 +13,18 @@ namespace Tetris
         public int Y { get; set; }
         public char C { get; set; }
 
-        public Point(int a, int b, char sym)
+        public Point(int x, int y, char c)
         {
-            X = a;
-            Y = b;
-            C = sym;
+            X = x;
+            Y = y;
+            C = c;
         }
         public Point() { }
-
         public Point(Point p)
         {
-            this.X = p.X;
-            this.Y = p.Y;
-            this.C = p.C;
+            X = p.X;
+            Y = p.Y;
+            C = p.C;
         }
 
         public void Draw()
@@ -42,7 +41,7 @@ namespace Tetris
 
         public void Move(Direction dir)
         {
-            switch (dir)
+            switch(dir)
             {
                 case Direction.Left:
                     X -= 1;
@@ -56,10 +55,10 @@ namespace Tetris
             }
         }
 
-        public void Rotate(int xx, int yy)
+        public void Rotate(int dx, int dy)
         {
-            X += xx;
-            Y += yy;
+            X += dx;
+            Y += dy;
         }
 
     }

@@ -23,9 +23,9 @@ namespace Tetris
 
             Figure figure = generator.GetRandomFigure();
 
-            while (true)
+            while(true)
             {
-                if (Console.KeyAvailable)
+                if(Console.KeyAvailable)
                 {
                     var key = Console.ReadKey();
                     if(key.Key == ConsoleKey.Escape)
@@ -51,7 +51,7 @@ namespace Tetris
         static void FigureFall(ref Figure figure, FigureGenerator generator)
         {
             Thread.Sleep(100);
-            if (!figure.TryMove(Direction.Down))
+            if(!figure.TryMove(Direction.Down))
             {
                 figure = generator.GetRandomFigure();
             }
