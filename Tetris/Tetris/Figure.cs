@@ -43,7 +43,7 @@ namespace Tetris
         {
             var clone = Clone();
             Move(clone, dir);
-            if(IsOutBorder(clone))
+            if(!VerifyPosition(clone))
             {
                 return false;
             }
@@ -74,16 +74,16 @@ namespace Tetris
             return newPoints;
         }
 
-        protected bool IsOutBorder(Point[] pList)
+        protected bool VerifyPosition(Point[] pList)
         {
             foreach(Point p in pList)
             {
-                if(p.Y >= Field.Height || p.X < 0 || p.X >= Field.Width)
+                if(p.Y >= Field.Height || p.X < 0 || p.X >= Field.Width || Field.CheckStrike(p))
                 {
-                    return true;
+                    return false;
                 }
             }
-            return false;
+            return true;
         }
 
         public abstract void Rotate(Point[] pList);

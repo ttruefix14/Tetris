@@ -23,7 +23,7 @@ namespace Tetris
         {
             var clone = Clone();
             Rotate(clone);
-            if(IsOutBorder(clone))
+            if(!VerifyPosition(clone))
             {
                 return;
             }

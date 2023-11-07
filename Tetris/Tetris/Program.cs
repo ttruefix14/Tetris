@@ -32,7 +32,7 @@ namespace Tetris
                         break;
                     HandleKey(figure, key);
                 }
-                FigureFall(ref figure, generator);
+                Field.FigureFall(ref figure, generator);
             }
         }
 
@@ -48,13 +48,5 @@ namespace Tetris
             }
         }
 
-        static void FigureFall(ref Figure figure, FigureGenerator generator)
-        {
-            Thread.Sleep(100);
-            if(!figure.TryMove(Direction.Down))
-            {
-                figure = generator.GetRandomFigure();
-            }
-        }
     }
 }
