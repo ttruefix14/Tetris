@@ -39,10 +39,14 @@ namespace Tetris
             }
         }
 
-        private static int _width = 40;
-        private static int _height = 30;
+        private static int _width = 20;
+        private static int _height = 20;
 
         private static bool[][] _heap;
+
+        public static int Speed { get => _speed; set => _speed = value; }
+
+        private static int _speed = 100;
 
         static Field()
         {
@@ -67,11 +71,43 @@ namespace Tetris
 
         public static void FigureFall(ref Figure figure, FigureGenerator generator)
         {
-            Thread.Sleep(100);
+            Thread.Sleep(Speed);
             if(!figure.TryMove(Direction.Down))
             {
+                ClearFullRows();
                 AddFigure(figure);
                 figure = generator.GetRandomFigure();
+            }
+        }
+
+        public static void ClearFullRows()
+        {
+            for(int i = _heap.Length - 1; i <= 0; i--)
+            {
+                bool rowIsFull = _heap[i].All(p => p == true);
+                if(rowIsFull)
+                {
+                    ClearFullRow(i);
+                }
+            }
+        }
+
+        private static void ClearFullRow(int i)
+        {
+            for(int j = 0; j < _heap[i].Length; j++)
+            {
+                _heap[i][j] = false;
+                Console.SetCursorPosition(i, j);
+                Console.Write(' ');
+                if (i > 0)
+                {
+                    _heap[i][j] = _heap[i - 1][j];
+                }
+                if(_heap[i][j])
+                {
+                    Console.SetCursorPosition(i, j);
+                    Console.Write('*');
+                }
             }
         }
     }

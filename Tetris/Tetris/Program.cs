@@ -16,9 +16,6 @@ namespace Tetris
             Console.SetBufferSize(Field.Width, Field.Height);
             Console.CursorVisible = false;
 
-            Field.Width = 40;
-            Field.Height = 30;
-
             FigureGenerator generator = new FigureGenerator(Field.Width / 2, 0, '*');
 
             Figure figure = generator.GetRandomFigure();
