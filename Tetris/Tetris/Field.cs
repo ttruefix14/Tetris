@@ -68,7 +68,7 @@ namespace Tetris
         public static void FigureFall(ref Figure figure, FigureGenerator generator)
         {
             Thread.Sleep(100);
-            if (!figure.TryMove(Direction.Down))
+            if(!figure.TryMove(Direction.Down))
             {
                 AddFigure(figure);
                 figure = generator.GetRandomFigure();
