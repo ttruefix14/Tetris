@@ -44,6 +44,8 @@ namespace Tetris
 
         private static bool[][] _heap;
 
+        public static bool[][] Heap { get { return _heap; } }
+
         static Field()
         {
             _heap = new bool[Height][];
@@ -51,8 +53,8 @@ namespace Tetris
             {
                 _heap[i] = new bool[Width];
             }
-            Console.SetWindowSize(Width, Height);
-            Console.SetBufferSize(Width, Height);
+            Console.SetWindowSize(Width + 1, Height);
+            Console.SetBufferSize(Width + 2, Height);
             Console.BackgroundColor = ConsoleColor.Blue;
             Console.Clear();
             Console.CursorVisible = false;
@@ -85,9 +87,9 @@ namespace Tetris
 
         private static void Redraw(char c)
         {
-            for(int y = 0; y < Height; ++y)
+            for(int y = 0; y < Height; y++)
             {
-                for (int x = 0; x < Width; ++x)
+                for (int x = 0; x < Width; x++)
                 {
                     if (_heap[y][x])
                     {

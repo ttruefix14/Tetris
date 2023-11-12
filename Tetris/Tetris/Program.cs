@@ -22,13 +22,13 @@ namespace Tetris
             figure = generator.GetRandomFigure();
             SetTimer();
 
-            while(true)
+            while (true)
             {
-                if(Console.KeyAvailable)
+                if (Console.KeyAvailable)
                 {
                     var key = Console.ReadKey();
                     Monitor.Enter(_lockObject);
-                    if(key.Key == ConsoleKey.Escape)
+                    if (key.Key == ConsoleKey.Escape)
                         break;
                     HandleKey(figure, key);
                     Monitor.Exit(_lockObject);
@@ -53,15 +53,14 @@ namespace Tetris
 
         private static void HandleKey(Figure figure, ConsoleKeyInfo key)
         {
-            if(Figure.SupportConsoleMove(key.Key))
+            if (Figure.SupportConsoleMove(key.Key))
             {
                 figure.TryMove(Figure.GetDirection(key.Key));
             }
-            else if(key.Key == ConsoleKey.Spacebar)
+            else if (key.Key == ConsoleKey.Spacebar)
             {
                 figure.TryRotate();
             }
         }
-
     }
 }
