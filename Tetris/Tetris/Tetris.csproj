@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Drawer.cs" />
     <Compile Include="Field.cs" />
     <Compile Include="Figure.cs" />
     <Compile Include="Direction.cs" />

@@ -40,13 +40,9 @@ namespace Tetris
         }
 
         private static int _width = 20;
-        private static int _height = 20;
+        private static int _height = 30;
 
         private static bool[][] _heap;
-
-        public static int Speed { get => _speed; set => _speed = value; }
-
-        private static int _speed = 100;
 
         static Field()
         {
@@ -55,6 +51,11 @@ namespace Tetris
             {
                 _heap[i] = new bool[Width];
             }
+            Console.SetWindowSize(Width, Height);
+            Console.SetBufferSize(Width, Height);
+            Console.BackgroundColor = ConsoleColor.Blue;
+            Console.Clear();
+            Console.CursorVisible = false;
         }
         
         public static bool CheckStrike(Point p)
@@ -71,42 +72,70 @@ namespace Tetris
 
         public static void FigureFall(ref Figure figure, FigureGenerator generator)
         {
-            Thread.Sleep(Speed);
-            if(!figure.TryMove(Direction.Down))
+            bool result = figure.TryMove(Direction.Down);
+            if(!result)
             {
-                ClearFullRows();
                 AddFigure(figure);
+                bool rowCleared = ClearFullRows();
+                if (rowCleared)
+                    Redraw(figure.Points[0].C);
                 figure = generator.GetRandomFigure();
             }
         }
 
-        public static void ClearFullRows()
+        private static void Redraw(char c)
         {
-            for(int i = _heap.Length - 1; i <= 0; i--)
+            for(int y = 0; y < Height; ++y)
             {
-                bool rowIsFull = _heap[i].All(p => p == true);
-                if(rowIsFull)
+                for (int x = 0; x < Width; ++x)
                 {
-                    ClearFullRow(i);
+                    if (_heap[y][x])
+                    {
+                        Drawer.DrawPoint(x, y, c);
+                    }
+                    else
+                    {
+                        Drawer.ClearPoint(x, y);
+                    }
                 }
             }
         }
 
-        private static void ClearFullRow(int i)
+        public static bool ClearFullRows()
         {
-            for(int j = 0; j < _heap[i].Length; j++)
+            bool rowCleared = false;
+            for(int y = _heap.Length - 1; y >= 0; y--)
             {
-                _heap[i][j] = false;
-                Console.SetCursorPosition(i, j);
-                Console.Write(' ');
-                if (i > 0)
+                bool rowIsFull = RowIsFull(y);
+                while(rowIsFull)
                 {
-                    _heap[i][j] = _heap[i - 1][j];
+                    DeleteRow(y);
+                    rowIsFull = RowIsFull(y);
+                    rowCleared = true;
                 }
-                if(_heap[i][j])
+            }
+            return rowCleared;
+        }
+
+        private static bool RowIsFull(int row)
+        {
+            return _heap[row].All(p => p == true);
+        }
+
+        private static void DeleteRow(int line)
+        {
+            for(int y = line; y >= 0; y--)
+            {
+                for (int x = 0; x < _heap[y].Length; x++)
                 {
-                    Console.SetCursorPosition(i, j);
-                    Console.Write('*');
+                    if (y == 0)
+                    {
+                        _heap[y][x] = false;
+                    }
+                    else
+                    {
+                        _heap[y][x] = _heap[y - 1][x];
+                    }
                 }
             }
         }

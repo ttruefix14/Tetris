@@ -4,33 +4,51 @@ using System.Linq;
 using System.Reflection.Emit;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
+using System.Timers;
 
 namespace Tetris
 {
     internal class Program
     {
+        static System.Timers.Timer timer;
+        const int TIMER_INTERVAL = 500;
+        static private object _lockObject = new object();
+
+        static Figure figure;
+        static FigureGenerator generator;
         static void Main(string[] args)
         {
-            Console.SetWindowSize(Field.Width, Field.Height);
-            Console.SetBufferSize(Field.Width, Field.Height);
-            Console.CursorVisible = false;
-
-            FigureGenerator generator = new FigureGenerator(Field.Width / 2, 0, '*');
-
-            Figure figure = generator.GetRandomFigure();
+            generator = new FigureGenerator(Field.Width / 2, 0, Drawer.DEFAULT_SYMBOL);
+            figure = generator.GetRandomFigure();
+            SetTimer();
 
             while(true)
             {
                 if(Console.KeyAvailable)
                 {
                     var key = Console.ReadKey();
+                    Monitor.Enter(_lockObject);
                     if(key.Key == ConsoleKey.Escape)
                         break;
                     HandleKey(figure, key);
+                    Monitor.Exit(_lockObject);
                 }
-                Field.FigureFall(ref figure, generator);
             }
+        }
+
+        private static void SetTimer()
+        {
+            timer = new System.Timers.Timer(TIMER_INTERVAL);
+            timer.Elapsed += OnTimedEvent;
+            timer.AutoReset = true;
+            timer.Enabled = true;
+        }
+
+        private static void OnTimedEvent(object sender, ElapsedEventArgs e)
+        {
+            Monitor.Enter(_lockObject);
+            Field.FigureFall(ref figure, generator);
+            Monitor.Exit(_lockObject);
         }
 
         private static void HandleKey(Figure figure, ConsoleKeyInfo key)

@@ -52,7 +52,7 @@ namespace Tetris
                 Clear();
                 Points = clone;
                 Draw();
-                Thread.Sleep(1);
+                //Thread.Sleep(1);
             }
             return true;
         }
