@@ -13,6 +13,7 @@ namespace Tetris
         static System.Timers.Timer timer;
         const int TIMER_INTERVAL = 500;
         static private object _lockObject = new object();
+        static private bool _gameOver = false;
 
         static Figure figure;
         static FigureGenerator generator;
@@ -24,6 +25,10 @@ namespace Tetris
 
             while (true)
             {
+                if (_gameOver)
+                {
+                    break;
+                }
                 if (Console.KeyAvailable)
                 {
                     var key = Console.ReadKey();
@@ -34,6 +39,7 @@ namespace Tetris
                     Monitor.Exit(_lockObject);
                 }
             }
+            Console.ReadKey();
         }
 
         private static void SetTimer()
@@ -47,7 +53,13 @@ namespace Tetris
         private static void OnTimedEvent(object sender, ElapsedEventArgs e)
         {
             Monitor.Enter(_lockObject);
-            Field.FigureFall(ref figure, generator);
+            bool gameOver = Field.FigureFall(ref figure, generator);
+            if (gameOver)
+            {
+                _gameOver = true;
+                timer = (System.Timers.Timer)sender;
+                timer.Stop();
+            }
             Monitor.Exit(_lockObject);
         }
 

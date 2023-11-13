@@ -31,12 +31,14 @@ namespace Tetris
         {
             Console.SetCursorPosition(X, Y);
             Console.Write(C);
+            Console.SetCursorPosition(0, 0);
         }
 
         public void Clear()
         {
             Console.SetCursorPosition(X, Y);
             Console.Write(' ');
+            Console.SetCursorPosition(0, 0);
         }
 
         public void Move(Direction dir)

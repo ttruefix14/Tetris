@@ -64,25 +64,52 @@ namespace Tetris
         {
             return _heap[p.Y][p.X];
         }
-        public static void AddFigure(Figure figure)
+        public static bool AddFigure(Figure figure)
         {
             foreach(var p in figure.Points)
             {
+                if (_heap[p.Y][p.X])
+                    return false;
                 _heap[p.Y][p.X] = true;
             }
+            return true;
         }
 
-        public static void FigureFall(ref Figure figure, FigureGenerator generator)
+        public static bool FigureFall(ref Figure figure, FigureGenerator generator)
         {
             bool result = figure.TryMove(Direction.Down);
             if(!result)
             {
-                AddFigure(figure);
+                bool figureAdded = AddFigure(figure);
+                if (!figureAdded)
+                {
+                    GameOver();
+                    return true;
+                }
                 bool rowCleared = ClearFullRows();
                 if (rowCleared)
                     Redraw(figure.Points[0].C);
                 figure = generator.GetRandomFigure();
             }
+            return false;
+        }
+
+        private static void GameOver()
+        {
+            //Console.Clear();
+            string[] message = new string[] { "IN", "LOVING", "MEMORY", "OF", "JONAS", "NEUBAUER" };
+            int cursorTop = (Field.Height - (message.Length * 2 - 1)) / 2;
+            for (int i = 0; i < message.Length; i++)
+            {
+                int cursorLeft = (Field.Width - message[i].Length) / 2;
+                if (i == 0)
+                    Console.SetCursorPosition(cursorLeft, cursorTop);
+                else
+                    Console.SetCursorPosition(cursorLeft, cursorTop + i);
+                Console.Write(message[i]);
+            }
+            Console.WriteLine();
+            Console.ReadKey();
         }
 
         private static void Redraw(char c)
