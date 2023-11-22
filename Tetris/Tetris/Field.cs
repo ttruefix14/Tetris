@@ -77,8 +77,8 @@ namespace Tetris
 
         public static bool FigureFall(ref Figure figure, FigureGenerator generator)
         {
-            bool result = figure.TryMove(Direction.Down);
-            if(!result)
+            bool figureFell = figure.TryMove(Direction.Down);
+            if(!figureFell)
             {
                 bool figureAdded = AddFigure(figure);
                 if (!figureAdded)
@@ -97,7 +97,7 @@ namespace Tetris
         private static void GameOver()
         {
             //Console.Clear();
-            string[] message = new string[] { "IN", "LOVING", "MEMORY", "OF", "JONAS", "NEUBAUER" };
+            string[] message = new string[] { "I N", "L O V I N G", "M E M O R Y", "O F", "J O N A S", "N E U B A U E R" };
             int cursorTop = (Field.Height - (message.Length * 2 - 1)) / 2;
             for (int i = 0; i < message.Length; i++)
             {
