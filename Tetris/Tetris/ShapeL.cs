@@ -1,22 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Tetris
 {
-    public class ShapeT : Figure
+    internal class ShapeL : Figure
     {
         private Rotation _rotation = Rotation.None;
         public Rotation Rotation { get { return _rotation; } set { _rotation = value; } }
-        public ShapeT(int x, int y, char c)
+        public ShapeL(int x, int y, char c)
         {
             Points[0] = new Point(x, y, c);
             Points[1] = new Point(x + 1, y, c);
             Points[2] = new Point(x + 2, y, c);
-            Points[3] = new Point(x + 1, y + 1, c);
+            Points[3] = new Point(x, y + 1, c);
             Draw();
         }
 
@@ -71,8 +70,8 @@ namespace Tetris
             pList[2].X -= 1;
             pList[2].Y += 2;
 
-            pList[3].X -= 1;
-        }        
+            pList[3].Y -= 1;
+        }
         private void RotateOne(Point[] pList)
         {
             pList[0].X += 1;
@@ -81,9 +80,8 @@ namespace Tetris
             pList[2].X -= 1;
             pList[2].Y -= 1;
 
-            pList[3].X += 1;
-            pList[3].Y -= 1;
-        }        
+            pList[3].X += 2;
+        }
         private void RotateTwo(Point[] pList)
         {
             pList[0].X -= 2;
@@ -93,8 +91,9 @@ namespace Tetris
 
             pList[2].Y -= 1;
 
-            pList[3].Y += 1;
-        }        
+            pList[3].X -= 1;
+            pList[3].Y += 2;
+        }
         private void RotateThree(Point[] pList)
         {
             pList[0].Y -= 2;
@@ -103,6 +102,9 @@ namespace Tetris
             pList[1].Y -= 1;
 
             pList[2].X += 2;
+
+            pList[3].X -= 1;
+            pList[3].Y -= 1;
         }
 
     }

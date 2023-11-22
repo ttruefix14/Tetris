@@ -8,6 +8,6 @@ namespace Tetris
 {
     public enum FigureType : byte
     {
-        Square, Stick, ShapeT
+        Square, Stick, ShapeT, ShapeL, ShapeJ, ShapeZ, ShapeS
     }
 }

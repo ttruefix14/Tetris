@@ -36,6 +36,14 @@ namespace Tetris
                     return new Stick(X, Y, C); ;
                 case FigureType.ShapeT:
                     return new ShapeT(X, Y, C);
+                case FigureType.ShapeL:
+                    return new ShapeL(X, Y, C);
+                case FigureType.ShapeJ:
+                    return new ShapeJ(X, Y, C);
+                case FigureType.ShapeZ:
+                    return new ShapeZ(X, Y, C);
+                case FigureType.ShapeS:
+                    return new ShapeS(X, Y, C);
                 default:
                     throw new Exception("Не существующий тип фигуры");
             } 

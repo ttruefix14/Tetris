@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 
 namespace Tetris
 {
-    public class ShapeT : Figure
+    public class ShapeS : Figure
     {
         private Rotation _rotation = Rotation.None;
         public Rotation Rotation { get { return _rotation; } set { _rotation = value; } }
-        public ShapeT(int x, int y, char c)
+        public ShapeS(int x, int y, char c)
         {
-            Points[0] = new Point(x, y, c);
-            Points[1] = new Point(x + 1, y, c);
-            Points[2] = new Point(x + 2, y, c);
+            Points[0] = new Point(x + 1, y, c);
+            Points[1] = new Point(x + 2, y, c);
+            Points[2] = new Point(x, y + 1, c);
             Points[3] = new Point(x + 1, y + 1, c);
             Draw();
         }
@@ -42,19 +42,19 @@ namespace Tetris
             switch (Rotation)
             {
                 case Rotation.None:
-                    RotateNone(pList);
+                    RotateHorizontal(pList);
                     Rotation += 1;
                     break;
                 case Rotation.One:
-                    RotateOne(pList);
+                    RotateVertical(pList);
                     Rotation += 1;
                     break;
                 case Rotation.Two:
-                    RotateTwo(pList);
+                    RotateHorizontal(pList);
                     Rotation += 1;
                     break;
                 case Rotation.Three:
-                    RotateThree(pList);
+                    RotateVertical(pList);
                     Rotation = Rotation.None;
                     break;
                 default:
@@ -62,48 +62,27 @@ namespace Tetris
             }
         }
 
-        private void RotateNone(Point[] pList)
+        private void RotateHorizontal(Point[] pList)
         {
-            pList[0].X += 1;
-
-            pList[1].Y += 1;
-
-            pList[2].X -= 1;
-            pList[2].Y += 2;
-
-            pList[3].X -= 1;
-        }        
-        private void RotateOne(Point[] pList)
-        {
-            pList[0].X += 1;
-            pList[0].Y += 1;
-
-            pList[2].X -= 1;
-            pList[2].Y -= 1;
-
-            pList[3].X += 1;
-            pList[3].Y -= 1;
-        }        
-        private void RotateTwo(Point[] pList)
-        {
-            pList[0].X -= 2;
             pList[0].Y += 1;
 
             pList[1].X -= 1;
+            pList[1].Y += 2;
 
             pList[2].Y -= 1;
 
-            pList[3].Y += 1;
+            pList[3].X -= 1;
         }        
-        private void RotateThree(Point[] pList)
+        private void RotateVertical(Point[] pList)
         {
-            pList[0].Y -= 2;
+            pList[0].Y -= 1;
 
             pList[1].X += 1;
-            pList[1].Y -= 1;
+            pList[1].Y -= 2;
 
-            pList[2].X += 2;
-        }
+            pList[2].Y += 1;
 
+            pList[3].X += 1;
+        }        
     }
 }
