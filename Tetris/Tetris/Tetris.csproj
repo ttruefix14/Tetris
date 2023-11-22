@@ -45,21 +45,21 @@
   <ItemGroup>
     <Compile Include="Drawer.cs" />
     <Compile Include="Field.cs" />
-    <Compile Include="Figure.cs" />
-    <Compile Include="Direction.cs" />
+    <Compile Include="Figures\Figure.cs" />
+    <Compile Include="Moves\Direction.cs" />
     <Compile Include="FigureGenerator.cs" />
-    <Compile Include="FigureType.cs" />
-    <Compile Include="Point.cs" />
+    <Compile Include="Figures\FigureType.cs" />
+    <Compile Include="Points\Point.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Rotation.cs" />
-    <Compile Include="ShapeJ.cs" />
-    <Compile Include="ShapeL.cs" />
-    <Compile Include="ShapeS.cs" />
-    <Compile Include="ShapeZ.cs" />
-    <Compile Include="ShapeT.cs" />
-    <Compile Include="Square.cs" />
-    <Compile Include="Stick.cs" />
+    <Compile Include="Moves\Rotation.cs" />
+    <Compile Include="Figures\ShapeJ.cs" />
+    <Compile Include="Figures\ShapeL.cs" />
+    <Compile Include="Figures\ShapeS.cs" />
+    <Compile Include="Figures\ShapeZ.cs" />
+    <Compile Include="Figures\ShapeT.cs" />
+    <Compile Include="Figures\Square.cs" />
+    <Compile Include="Figures\Stick.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
