@@ -120,11 +120,11 @@ namespace Tetris
                 {
                     if (_heap[y][x])
                     {
-                        Drawer.DrawPoint(x, y, c);
+                        DrawerProvider.Drawer.DrawPoint(x, y);
                     }
                     else
                     {
-                        Drawer.ClearPoint(x, y);
+                        DrawerProvider.Drawer.ClearPoint(x, y);
                     }
                 }
             }

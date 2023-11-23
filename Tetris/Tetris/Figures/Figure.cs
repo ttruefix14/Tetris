@@ -10,18 +10,19 @@ namespace Tetris
 {
     public abstract class Figure
     {
-        public static int Length
+        private const int LENGTH = 4;
+
+        private Point[] _figureClone = new Point[LENGTH]
         {
-            get { return _length; }
-        }
-        private static readonly int _length = 4;
+            new Point(), new Point(), new Point(), new Point()
+        };
 
         public Point[] Points
         { 
             get { return _points; } 
             set { _points = value; } 
         }
-        private Point[] _points = new Point[Length];
+        private Point[] _points = new Point[LENGTH];
 
         public void Draw()
         {
@@ -50,12 +51,23 @@ namespace Tetris
             else
             {
                 Clear();
-                Points = clone;
+                ReplaceWithClone();
                 Draw();
                 //Thread.Sleep(1);
             }
             return true;
         }
+
+        protected void ReplaceWithClone()
+        {
+            for (int i = 0; i < LENGTH; i++)
+            {
+                Points[i].X = _figureClone[i].X;
+                Points[i].Y = _figureClone[i].Y;
+                Points[i].C = _figureClone[i].C;
+            }
+        }
+
         private void Move(Point[] pList, Direction dir)
         {
             foreach(Point p in pList)
@@ -66,12 +78,13 @@ namespace Tetris
 
         protected Point[] Clone()
         {
-            var newPoints = new Point[Length];
-            for(int i = 0; i < Length; i++)
+            for(int i = 0; i < LENGTH; i++)
             {
-                newPoints[i] = new Point(Points[i]);
+                _figureClone[i].X = Points[i].X;
+                _figureClone[i].Y = Points[i].Y;
+                _figureClone[i].C = Points[i].C;
             }
-            return newPoints;
+            return _figureClone;
         }
 
         protected bool VerifyPosition(Point[] pList)

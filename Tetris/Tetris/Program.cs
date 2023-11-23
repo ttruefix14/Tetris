@@ -19,7 +19,7 @@ namespace Tetris
         static FigureGenerator generator;
         static void Main(string[] args)
         {
-            generator = new FigureGenerator(Field.Width / 2, 0, Drawer.DEFAULT_SYMBOL);
+            generator = new FigureGenerator(Field.Width / 2, 0, DrawerProvider.Drawer.DefaultSymbol);
             figure = generator.GetRandomFigure();
             SetTimer();
 

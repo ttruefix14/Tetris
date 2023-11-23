@@ -29,16 +29,12 @@ namespace Tetris
 
         public void Draw()
         {
-            Console.SetCursorPosition(X, Y);
-            Console.Write(C);
-            Console.SetCursorPosition(0, 0);
+            DrawerProvider.Drawer.DrawPoint(X, Y);
         }
 
         public void Clear()
         {
-            Console.SetCursorPosition(X, Y);
-            Console.Write(' ');
-            Console.SetCursorPosition(0, 0);
+            DrawerProvider.Drawer.ClearPoint(X, Y);
         }
 
         public void Move(Direction dir)

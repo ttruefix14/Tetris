@@ -31,7 +31,7 @@ namespace Tetris
             else
             {
                 Clear();
-                Points = clone;
+                ReplaceWithClone();
                 Draw();
                 //Thread.Sleep(100);
             }
