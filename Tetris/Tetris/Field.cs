@@ -13,30 +13,30 @@ namespace Tetris
         public static int Width
         {
             get { return _width; }
-            set 
-            {
-                if(!(value <= Console.LargestWindowWidth && value > 10))
-                {
-                    return;
-                }
-                _width = value;
-                Console.SetWindowSize(Field._width, Field._height);
-                Console.SetBufferSize(Field._width, Field._height);
-            }
+            //set 
+            //{
+            //    if(!(value <= Console.LargestWindowWidth && value > 10))
+            //    {
+            //        return;
+            //    }
+            //    _width = value;
+            //    Console.SetWindowSize(Field._width, Field._height);
+            //    Console.SetBufferSize(Field._width, Field._height);
+            //}
         }
         public static int Height
         {
             get { return _height; }
-            set
-            {
-                if(!(value <= Console.LargestWindowHeight && value > 10))
-                {
-                    return;
-                }
-                _height = value;
-                Console.SetWindowSize(Field._width, Field._height);
-                Console.SetBufferSize(Field._width, Field._height);
-            }
+            //set
+            //{
+            //    if(!(value <= Console.LargestWindowHeight && value > 10))
+            //    {
+            //        return;
+            //    }
+            //    _height = value;
+            //    Console.SetWindowSize(Field._width, Field._height);
+            //    Console.SetBufferSize(Field._width, Field._height);
+            //}
         }
 
         private static int _width = 20;
@@ -53,11 +53,7 @@ namespace Tetris
             {
                 _heap[i] = new bool[Width];
             }
-            Console.SetWindowSize(Width + 1, Height);
-            Console.SetBufferSize(Width + 2, Height);
-            Console.BackgroundColor = ConsoleColor.Blue;
-            Console.Clear();
-            Console.CursorVisible = false;
+            DrawerProvider.Drawer.InitField();
         }
         
         public static bool CheckStrike(Point p)
@@ -96,7 +92,6 @@ namespace Tetris
 
         private static void GameOver()
         {
-            //Console.Clear();
             DrawerProvider.Drawer.GameOver();
         }
 

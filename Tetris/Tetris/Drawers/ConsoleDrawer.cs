@@ -10,6 +10,14 @@ namespace Tetris
     {
         public static readonly char _defaultSymbol = '#';
         public char DefaultSymbol { get { return _defaultSymbol; } }
+        public void InitField()
+        {
+            Console.SetWindowSize(Field.Width + 1, Field.Height);
+            Console.SetBufferSize(Field.Width + 2, Field.Height);
+            Console.BackgroundColor = ConsoleColor.Blue;
+            Console.Clear();
+            Console.CursorVisible = false;
+        }
         public void DrawPoint(int x, int y)
         {
             Console.SetCursorPosition(x, y);

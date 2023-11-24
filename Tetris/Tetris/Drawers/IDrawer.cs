@@ -9,9 +9,8 @@ namespace Tetris
     interface IDrawer
     {
         char DefaultSymbol { get; }
-
+        void InitField();
         void DrawPoint(int x, int y);
-
         void ClearPoint(int x, int y);
         void GameOver();
     }

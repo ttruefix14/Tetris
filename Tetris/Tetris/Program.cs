@@ -41,7 +41,6 @@ namespace Tetris
                     Monitor.Exit(_lockObject);
                 }
             }
-            Console.ReadKey();
         }
 
         private static void SetTimer()
