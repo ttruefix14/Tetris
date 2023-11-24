@@ -9,17 +9,39 @@ namespace TetrisGUI.Controllers
 {
     class GraphicController : IController
     {
+        private static bool _isKeyAvailable = false;
         public bool IsKeyAvailable()
         {
-            bool isKeyAvailable = GraphicsWindow.LastKey != "None";
-            
-            GraphicsWindow.DrawText(1, 1, GraphicsWindow.LastKey);
-            return isKeyAvailable;
+            return _isKeyAvailable;
+        }
+
+        internal static void KeyDown()
+        {
+            _isKeyAvailable = true;
         }
 
         public HandleKeyResult HandleKey(Figure figure)
         {
-            return HandleKeyResult.WrongKey;
+            _isKeyAvailable = false;
+            switch (GraphicsWindow.LastKey.ToString())
+            {
+                case "Escape":
+                    return HandleKeyResult.Exit;
+                case "Space":
+                    figure.TryRotate();
+                    return HandleKeyResult.FigureRotated;
+                case "Left":
+                    figure.TryMove(Direction.Left);
+                    return HandleKeyResult.FigureMoved;
+                case "Right":
+                    figure.TryMove(Direction.Right);
+                    return HandleKeyResult.FigureMoved;
+                case "Down":
+                    figure.TryMove(Direction.Down);
+                    return HandleKeyResult.FigureMoved;
+                default:
+                    return HandleKeyResult.WrongKey;
+            }
         }
     }
 }

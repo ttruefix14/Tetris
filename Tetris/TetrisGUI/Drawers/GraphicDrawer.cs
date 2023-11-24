@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TetrisGUI.Controllers;
 
 namespace TetrisGUI.Drawers
 {
@@ -26,11 +27,13 @@ namespace TetrisGUI.Drawers
 
         public void GameOver()
         {
-            throw new NotImplementedException();
+            GraphicsWindow.Clear();
+            GraphicsWindow.DrawText(Field.Width * BLOCK_SIZE / 2, Field.Height * BLOCK_SIZE / 2, "GAME OVER");
         }
 
         public void InitField()
         {
+            GraphicsWindow.KeyDown += GraphicController.KeyDown;
             GraphicsWindow.Width = Field.Width * BLOCK_SIZE;
             GraphicsWindow.Height = Field.Height * BLOCK_SIZE;
 
