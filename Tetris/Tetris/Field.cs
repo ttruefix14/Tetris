@@ -88,7 +88,7 @@ namespace Tetris
                 }
                 bool rowCleared = ClearFullRows();
                 if (rowCleared)
-                    Redraw(figure.Points[0].C);
+                    Redraw();
                 figure = generator.GetRandomFigure();
             }
             return false;
@@ -97,22 +97,10 @@ namespace Tetris
         private static void GameOver()
         {
             //Console.Clear();
-            string[] message = new string[] { "I N", "L O V I N G", "M E M O R Y", "O F", "J O N A S", "N E U B A U E R" };
-            int cursorTop = (Field.Height - (message.Length * 2 - 1)) / 2;
-            for (int i = 0; i < message.Length; i++)
-            {
-                int cursorLeft = (Field.Width - message[i].Length) / 2;
-                if (i == 0)
-                    Console.SetCursorPosition(cursorLeft, cursorTop);
-                else
-                    Console.SetCursorPosition(cursorLeft, cursorTop + i);
-                Console.Write(message[i]);
-            }
-            Console.WriteLine();
-            Console.ReadKey();
+            DrawerProvider.Drawer.GameOver();
         }
 
-        private static void Redraw(char c)
+        private static void Redraw()
         {
             for(int y = 0; y < Height; y++)
             {

@@ -5,6 +5,7 @@ using System.Reflection.Emit;
 using System.Text;
 using System.Threading;
 using System.Timers;
+using Tetris.Controllers;
 
 namespace Tetris
 {
@@ -19,7 +20,7 @@ namespace Tetris
         static FigureGenerator generator;
         static void Main(string[] args)
         {
-            generator = new FigureGenerator(Field.Width / 2, 0, DrawerProvider.Drawer.DefaultSymbol);
+            generator = new FigureGenerator(Field.Width / 2, 0);
             figure = generator.GetRandomFigure();
             SetTimer();
 
@@ -29,13 +30,14 @@ namespace Tetris
                 {
                     break;
                 }
-                if (Console.KeyAvailable)
+                if (ControllerProvider.Controller.IsKeyAvailable())
                 {
-                    var key = Console.ReadKey();
                     Monitor.Enter(_lockObject);
-                    if (key.Key == ConsoleKey.Escape)
+                    HandleKeyResult handleKeyResult = ControllerProvider.Controller.HandleKey(figure);
+                    if (handleKeyResult == HandleKeyResult.Exit)
+                    {
                         break;
-                    HandleKey(figure, key);
+                    }
                     Monitor.Exit(_lockObject);
                 }
             }
@@ -61,18 +63,6 @@ namespace Tetris
                 timer.Stop();
             }
             Monitor.Exit(_lockObject);
-        }
-
-        private static void HandleKey(Figure figure, ConsoleKeyInfo key)
-        {
-            if (Figure.SupportConsoleMove(key.Key))
-            {
-                figure.TryMove(Figure.GetDirection(key.Key));
-            }
-            else if (key.Key == ConsoleKey.Spacebar)
-            {
-                figure.TryRotate();
-            }
         }
     }
 }

@@ -64,7 +64,6 @@ namespace Tetris
             {
                 Points[i].X = _figureClone[i].X;
                 Points[i].Y = _figureClone[i].Y;
-                Points[i].C = _figureClone[i].C;
             }
         }
 
@@ -82,7 +81,6 @@ namespace Tetris
             {
                 _figureClone[i].X = Points[i].X;
                 _figureClone[i].Y = Points[i].Y;
-                _figureClone[i].C = Points[i].C;
             }
             return _figureClone;
         }

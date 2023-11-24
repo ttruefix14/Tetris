@@ -13,5 +13,6 @@ namespace Tetris
         void DrawPoint(int x, int y);
 
         void ClearPoint(int x, int y);
+        void GameOver();
     }
 }

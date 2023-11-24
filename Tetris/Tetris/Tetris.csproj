@@ -43,9 +43,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Drawers\ConsoleDrawer2.cs" />
+    <Compile Include="Controllers\ConsoleController.cs" />
+    <Compile Include="Controllers\ControllerProvider.cs" />
+    <Compile Include="Controllers\HadleKeyResult.cs" />
+    <Compile Include="Controllers\IController.cs" />
     <Compile Include="Drawers\ConsoleDrawer.cs" />
-    <Compile Include="Drawers\Drawer.cs" />
     <Compile Include="Drawers\DrawerProvider.cs" />
     <Compile Include="Field.cs" />
     <Compile Include="Figures\Figure.cs" />

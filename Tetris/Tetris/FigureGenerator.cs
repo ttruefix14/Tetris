@@ -11,18 +11,15 @@ namespace Tetris
         public Random RandomGen { get { return _random; } }
         public int X { get { return _x; } set { _x = value; } }
         public int Y { get { return _y; } set { _y = value; } }
-        public char C { get { return _c; } set { _c = value; } }
 
         private Random _random = new Random();
         private int _x;
         private int _y;
-        private char _c;
 
-        public FigureGenerator(int x, int y, char c)
+        public FigureGenerator(int x, int y)
         {
             X = x;
             Y = y;
-            C = c;
         }
 
         public Figure GetRandomFigure()
@@ -31,19 +28,19 @@ namespace Tetris
             switch(figureType)
             {
                 case FigureType.Square:
-                    return new Square(X, Y, C);
+                    return new Square(X, Y);
                 case FigureType.Stick:
-                    return new Stick(X, Y, C); ;
+                    return new Stick(X, Y); ;
                 case FigureType.ShapeT:
-                    return new ShapeT(X, Y, C);
+                    return new ShapeT(X, Y);
                 case FigureType.ShapeL:
-                    return new ShapeL(X, Y, C);
+                    return new ShapeL(X, Y);
                 case FigureType.ShapeJ:
-                    return new ShapeJ(X, Y, C);
+                    return new ShapeJ(X, Y);
                 case FigureType.ShapeZ:
-                    return new ShapeZ(X, Y, C);
+                    return new ShapeZ(X, Y);
                 case FigureType.ShapeS:
-                    return new ShapeS(X, Y, C);
+                    return new ShapeS(X, Y);
                 default:
                     throw new Exception("Не существующий тип фигуры");
             } 

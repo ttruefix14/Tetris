@@ -11,12 +11,12 @@ namespace Tetris
     {
         private Rotation _rotation = Rotation.None;
         public Rotation Rotation { get { return _rotation; } set { _rotation = value; } }
-        public ShapeZ(int x, int y, char c)
+        public ShapeZ(int x, int y)
         {
-            Points[0] = new Point(x, y, c);
-            Points[1] = new Point(x + 1, y, c);
-            Points[2] = new Point(x + 1, y + 1, c);
-            Points[3] = new Point(x + 2, y + 1, c);
+            Points[0] = new Point(x, y);
+            Points[1] = new Point(x + 1, y);
+            Points[2] = new Point(x + 1, y + 1);
+            Points[3] = new Point(x + 2, y + 1);
             Draw();
         }
 

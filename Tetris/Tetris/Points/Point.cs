@@ -11,20 +11,16 @@ namespace Tetris
     {
         public int X { get; set; }
         public int Y { get; set; }
-        public char C { get; set; }
-
-        public Point(int x, int y, char c)
+        public Point(int x, int y)
         {
             X = x;
             Y = y;
-            C = c;
         }
         public Point() { }
         public Point(Point p)
         {
             X = p.X;
             Y = p.Y;
-            C = p.C;
         }
 
         public void Draw()
