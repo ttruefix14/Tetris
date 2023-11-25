@@ -89,7 +89,11 @@ namespace TetrisGUI
         {
             foreach(Point p in pList)
             {
-                if(p.Y >= Field.Height || p.X < 0 || p.X >= Field.Width || Field.CheckStrike(p))
+                if(p.Y < 0 || p.Y >= Field.Height || p.X < 0 || p.X >= Field.Width)
+                {
+                    return false;
+                }
+                else if (Field.CheckStrike(p))
                 {
                     return false;
                 }

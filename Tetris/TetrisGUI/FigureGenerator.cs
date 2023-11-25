@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TetrisGUI.Drawers;
 
 namespace TetrisGUI
 {
@@ -16,6 +17,17 @@ namespace TetrisGUI
         private int _x;
         private int _y;
 
+        private static string[] _colors = new string[]
+        {
+            "Red", "Orange", "Green", "Purple"
+        };
+        public static string[] Colors { get { return _colors; } }
+        public string GetColor()
+        {
+            string color = Colors[RandomGen.Next(0, Colors.Length)];
+            return color;
+        }
+
         public FigureGenerator(int x, int y)
         {
             X = x;
@@ -25,7 +37,8 @@ namespace TetrisGUI
         public Figure GetRandomFigure()
         {
             FigureType figureType = (FigureType)RandomGen.Next(0, Enum.GetNames(typeof(FigureType)).Length);
-            switch(figureType)
+            GraphicDrawer.BrushColor = GetColor();
+            switch (figureType)
             {
                 case FigureType.Square:
                     return new Square(X, Y);

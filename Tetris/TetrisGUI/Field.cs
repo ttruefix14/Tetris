@@ -5,6 +5,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using TetrisGUI.Drawers;
 
 namespace TetrisGUI
 {
@@ -39,34 +40,34 @@ namespace TetrisGUI
             //}
         }
 
-        private static int _width = 20;
-        private static int _height = 30;
+        private static int _width = 10;
+        private static int _height = 22;
 
-        private static bool[][] _heap;
+        private static string[][] _heap;
 
-        public static bool[][] Heap { get { return _heap; } }
+        public static string[][] Heap { get { return _heap; } }
 
         static Field()
         {
-            _heap = new bool[Height][];
+            _heap = new string[Height][];
             for(int i = 0; i < Height; i++)
             {
-                _heap[i] = new bool[Width];
+                _heap[i] = new string[Width];
             }
             DrawerProvider.Drawer.InitField();
         }
         
         public static bool CheckStrike(Point p)
         {
-            return _heap[p.Y][p.X];
+            return _heap[p.Y][p.X] != null;
         }
         public static bool AddFigure(Figure figure)
         {
             foreach(var p in figure.Points)
             {
-                if (_heap[p.Y][p.X])
+                if (_heap[p.Y][p.X] != null)
                     return false;
-                _heap[p.Y][p.X] = true;
+                _heap[p.Y][p.X] = GraphicDrawer.BrushColor;
             }
             return true;
         }
@@ -101,8 +102,9 @@ namespace TetrisGUI
             {
                 for (int x = 0; x < Width; x++)
                 {
-                    if (_heap[y][x])
+                    if (_heap[y][x] != null)
                     {
+                        GraphicDrawer.BrushColor = _heap[y][x];
                         DrawerProvider.Drawer.DrawPoint(x, y);
                     }
                     else
@@ -131,7 +133,7 @@ namespace TetrisGUI
 
         private static bool RowIsFull(int row)
         {
-            return _heap[row].All(p => p == true);
+            return _heap[row].All(p => p != null);
         }
 
         private static void DeleteRow(int line)
@@ -142,7 +144,7 @@ namespace TetrisGUI
                 {
                     if (y == 0)
                     {
-                        _heap[y][x] = false;
+                        _heap[y][x] = null;
                     }
                     else
                     {
