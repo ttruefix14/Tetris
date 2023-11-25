@@ -14,8 +14,8 @@ namespace TetrisGUI.Drawers
         const int GRID_WIDTH = 2;
         const string PEN_COLOR = "Black";
         const string BACKGROUND_COLOR = "LightBlue";
-        private static string _brushColor;
-        public static string BrushColor {  get { return _brushColor; } set { _brushColor = value; } }
+        private string _brushColor;
+        public string BrushColor {  get { return _brushColor; } set { _brushColor = value; } }
         public void ClearPoint(int x, int y)
         {
             GraphicsWindow.PenColor = BACKGROUND_COLOR;
@@ -25,6 +25,7 @@ namespace TetrisGUI.Drawers
         }
         public void DrawPoint(int x, int y)
         {
+            GraphicsWindow.PenWidth = 2;
             GraphicsWindow.PenColor = PEN_COLOR;
             GraphicsWindow.BrushColor = BrushColor;
             GraphicsWindow.DrawRectangle(GetX(x), GetY(y), BLOCK_SIZE, BLOCK_SIZE);

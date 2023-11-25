@@ -37,7 +37,7 @@ namespace TetrisGUI
         public Figure GetRandomFigure()
         {
             FigureType figureType = (FigureType)RandomGen.Next(0, Enum.GetNames(typeof(FigureType)).Length);
-            GraphicDrawer.BrushColor = GetColor();
+            DrawerProvider.Drawer.BrushColor = GetColor();
             switch (figureType)
             {
                 case FigureType.Square:

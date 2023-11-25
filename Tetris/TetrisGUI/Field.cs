@@ -67,7 +67,7 @@ namespace TetrisGUI
             {
                 if (_heap[p.Y][p.X] != null)
                     return false;
-                _heap[p.Y][p.X] = GraphicDrawer.BrushColor;
+                _heap[p.Y][p.X] = DrawerProvider.Drawer.BrushColor;
             }
             return true;
         }
@@ -104,7 +104,7 @@ namespace TetrisGUI
                 {
                     if (_heap[y][x] != null)
                     {
-                        GraphicDrawer.BrushColor = _heap[y][x];
+                        DrawerProvider.Drawer.BrushColor = _heap[y][x];
                         DrawerProvider.Drawer.DrawPoint(x, y);
                     }
                     else

@@ -10,6 +10,9 @@ namespace TetrisGUI
     {
         public static readonly char _defaultSymbol = '#';
         public char DefaultSymbol { get { return _defaultSymbol; } }
+
+        public string BrushColor { get; set; }
+
         public void InitField()
         {
             Console.SetWindowSize(Field.Width + 1, Field.Height);
