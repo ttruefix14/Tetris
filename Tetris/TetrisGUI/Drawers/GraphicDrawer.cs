@@ -34,7 +34,12 @@ namespace TetrisGUI.Drawers
         public void GameOver()
         {
             GraphicsWindow.Clear();
-            GraphicsWindow.DrawText(Field.Width * BLOCK_SIZE / 2, Field.Height * BLOCK_SIZE / 2, "GAME OVER");
+            string message = "GAME OVER";
+            int textMargin = 10;
+
+            GraphicsWindow.BrushColor = "Red";
+            GraphicsWindow.FontSize = 20;
+            GraphicsWindow.DrawText(textMargin, Field.Height * BLOCK_SIZE / 2,  message);
         }
         public void InitField()
         {
